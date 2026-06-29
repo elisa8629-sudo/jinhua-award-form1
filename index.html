@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>金華國小家長會｜獎勵教師指導學生參與校外競賽獎勵金申請表</title>
+<style>
+  :root{
+    --navy:#1f3a5f;
+    --navy-dark:#142840;
+    --gold:#b8893f;
+    --paper:#fdfcf9;
+    --line:#c9c2b3;
+    --ink:#2b2a26;
+    --muted:#6e6a5e;
+    --good:#3c7a4e;
+    --bad:#a23b3b;
+    --chip-bg:#eef1f5;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;
+    background:#e8e4da;
+    color:var(--ink);
+    padding:24px 12px 60px;
+  }
+  .sheet{
+    max-width:1180px;
+    margin:0 auto;
+    background:var(--paper);
+    border:1px solid var(--line);
+    box-shadow:0 4px 18px rgba(0,0,0,.12);
+  }
+  .titlebar{
+    background:linear-gradient(135deg,var(--navy),var(--navy-dark));
+    color:#fff;
+    padding:22px 32px 18px;
+    position:relative;
+  }
+  .titlebar .tag{
+    display:inline-block;
+    border:1px solid rgba(255,255,255,.5);
+    border-radius:3px;
+    font-size:12px;
+    padding:2px 8px;
+    letter-spacing:2px;
+    margin-bottom:8px;
+    color:#f0d8a8;
+  }
+  .titlebar h1{
+    margin:0;
+    font-size:22px;
+    letter-spacing:2px;
+    line-height:1.5;
+  }
+  .titlebar .sub{
+    font-size:13px;
+    color:#cfd8e6;
+    margin-top:6px;
+  }
+  .toolbar{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    padding:14px 32px;
+    background:#f1eee4;
+    border-bottom:1px solid var(--line);
+    align-items:center;
+  }
+  .toolbar button{
+    border:1px solid var(--navy);
+    background:#fff;
+    color:var(--navy);
+    padding:7px 14px;
+    border-radius:4px;
+    font-size:13px;
+    cursor:pointer;
+    font-weight:600;
+  }
+  .toolbar button.primary{
+    background:var(--navy);
+    color:#fff;
+  }
+  .toolbar button.gold{
+    background:var(--gold);
+    border-color:var(--gold);
+    color:#fff;
+  }
+  .toolbar button:hover{opacity:.85;}
+  .save-status{
+    font-size:12px;
+    color:var(--muted);
+    margin-left:auto;
+  }
+  .content{padding:26px 32px 10px;}
+  .help-toggle{
+    font-size:13px;
+    color:var(--navy);
+    cursor:pointer;
+    text-decoration:underline;
+    margin-bottom:14px;
+    display:inline-block;
+  }
+  .ref-panel{
+    display:none;
+    background:#f6f4ec;
+    border:1px dashed var(--line);
+    border-radius:6px;
+    padding:14px 18px;
+    font-size:12.5px;
+    color:var(--ink);
+    margin-bottom:18px;
+    line-height:1.7;
+  }
+  .ref-panel.open{display:block;}
+  .ref-panel table{
+    width:100%;
+    border-collapse:collapse;
+    margin:8px 0 12px;
+    font-size:12px;
+  }
+  .ref-panel th,.ref-panel td{
+    border:1px solid var(--line);
+    padding:5px 8px;
+    text-align:center;
+  }
+  .ref-panel th{background:#e9e4d4;}
+  .ref-panel h4{margin:10px 0 4px;color:var(--navy);}
+  .ref-panel ul{margin:4px 0 0 18px;padding:0;}
+
+  .basic-info{
+    display:grid;
+    grid-template-columns:140px 1fr 140px 1fr;
+    gap:0;
+    border:1px solid var(--ink);
+    margin-bottom:22px;
+  }
+  .basic-info .lbl,.basic-info .val{
+    border:1px solid var(--ink);
+    padding:10px 12px;
+    display:flex;
+    align-items:center;
+    font-size:14px;
+  }
+  .basic-info .lbl{background:#eef1f5;font-weight:700;justify-content:center;}
+  .basic-info input{
+    width:100%;
+    border:none;
+    background:transparent;
+    font-size:14px;
+    font-family:inherit;
+    padding:4px 2px;
+    outline:none;
+  }
+  .basic-info input:focus{background:#fff7e0;}
+
+  .field-hint{font-size:11px;color:var(--muted);display:block;margin-top:2px;}
+
+  table.items{
+    width:100%;
+    border-collapse:collapse;
+    margin-bottom:6px;
+    font-size:13px;
+  }
+  table.items th{
+    background:var(--navy);
+    color:#fff;
+    padding:9px 6px;
+    font-size:12.5px;
+    border:1px solid var(--navy-dark);
+  }
+  table.items td{
+    border:1px solid var(--line);
+    padding:8px 6px;
+    vertical-align:top;
+  }
+  table.items tr:nth-child(even) td{background:#faf9f5;}
+  .row-idx{
+    text-align:center;
+    font-weight:700;
+    color:var(--navy);
+    width:28px;
+  }
+  .col-name input{width:100%;border:1px solid var(--line);border-radius:3px;padding:6px;font-size:13px;}
+  .chip-group{display:flex;flex-wrap:wrap;gap:4px;}
+  .chip{
+    border:1px solid var(--line);
+    background:var(--chip-bg);
+    border-radius:14px;
+    padding:4px 10px;
+    font-size:12px;
+    cursor:pointer;
+    user-select:none;
+    white-space:nowrap;
+  }
+  .chip.active-nat{background:var(--navy);color:#fff;border-color:var(--navy);}
+  .chip.active-team{background:var(--gold);color:#fff;border-color:var(--gold);}
+  select{
+    width:100%;
+    border:1px solid var(--line);
+    border-radius:3px;
+    padding:6px 4px;
+    font-size:12.5px;
+    background:#fff;
+  }
+  .col-rank{min-width:120px;}
+  .col-amount input{
+    width:100%;
+    border:1px solid var(--line);
+    border-radius:3px;
+    padding:6px;
+    font-size:13px;
+    text-align:right;
+    font-weight:700;
+    color:var(--navy-dark);
+  }
+  .team-extra{
+    margin-top:5px;
+    font-size:11px;
+    color:var(--muted);
+  }
+  .team-extra input[type=number]{
+    width:48px;
+    border:1px solid var(--line);
+    border-radius:3px;
+    padding:2px 4px;
+    font-size:11px;
+  }
+  .col-teacher input{width:100%;border:1px solid var(--line);border-radius:3px;padding:6px;font-size:13px;}
+  .per-teacher{font-size:11px;color:var(--good);margin-top:3px;}
+  .del-btn{
+    border:none;
+    background:none;
+    color:var(--bad);
+    font-size:18px;
+    cursor:pointer;
+    line-height:1;
+  }
+  .col-del{text-align:center;width:30px;}
+
+  .add-row-bar{
+    text-align:center;
+    margin:8px 0 22px;
+  }
+  .add-row-bar button{
+    border:1px dashed var(--navy);
+    background:#fff;
+    color:var(--navy);
+    padding:8px 22px;
+    border-radius:20px;
+    cursor:pointer;
+    font-size:13px;
+  }
+
+  .total-bar{
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+    gap:14px;
+    border:1px solid var(--ink);
+    padding:12px 18px;
+    margin-bottom:22px;
+    background:#f6f4ec;
+  }
+  .total-bar .label{font-weight:700;font-size:15px;}
+  .total-bar .amount{font-size:22px;font-weight:800;color:var(--navy-dark);}
+
+  .sign-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    border:1px solid var(--ink);
+    margin-bottom:0;
+  }
+  .sign-cell{
+    border:1px solid var(--ink);
+    padding:14px 12px;
+    font-size:14px;
+  }
+  .sign-label{font-weight:700;margin-bottom:8px;}
+  .sign-area{min-height:34px;margin-bottom:8px;}
+  .sign-text-input{
+    display:block;
+    width:100%;
+    border:none;
+    border-bottom:1px solid var(--line);
+    background:transparent;
+    font-weight:400;
+    font-size:13px;
+    padding:4px 2px;
+    outline:none;
+  }
+  .sign-img-wrap{display:flex;align-items:center;gap:8px;}
+  .sign-img-preview{
+    max-height:48px;
+    max-width:160px;
+    border:1px solid var(--line);
+    border-radius:4px;
+    background:#fff;
+    object-fit:contain;
+  }
+  .clear-sign-btn{
+    border:1px solid var(--bad);
+    background:#fff;
+    color:var(--bad);
+    font-size:11px;
+    padding:3px 8px;
+    border-radius:3px;
+    cursor:pointer;
+  }
+  .upload-btn{
+    display:inline-block;
+    font-size:11.5px;
+    color:var(--navy);
+    border:1px dashed var(--navy);
+    border-radius:14px;
+    padding:4px 10px;
+    cursor:pointer;
+  }
+  .upload-btn:hover{background:#eef1f5;}
+
+  .review-bar{
+    display:flex;
+    align-items:center;
+    gap:24px;
+    border:1px solid var(--ink);
+    border-top:none;
+    padding:12px 18px;
+    margin-bottom:26px;
+    font-size:14px;
+    font-weight:700;
+  }
+  .review-bar label{display:flex;align-items:center;gap:5px;font-weight:400;cursor:pointer;}
+  .blank-check{font-weight:400;letter-spacing:1px;}
+  .review-hint{font-size:11px;color:var(--muted);font-weight:400;margin-left:auto;}
+  .print-view{display:none;}
+  .pv-title{
+    text-align:center;
+    font-size:18px;
+    font-weight:800;
+    margin:0 0 18px;
+    line-height:1.6;
+  }
+  .pv-basic{
+    display:grid;
+    grid-template-columns:110px 1fr 110px 1fr;
+    border:1px solid var(--ink);
+    margin-bottom:14px;
+  }
+  .pv-basic .lbl,.pv-basic .val{
+    border:1px solid var(--ink);
+    padding:8px 10px;
+    font-size:13.5px;
+  }
+  .pv-basic .lbl{background:#eef1f5;font-weight:700;text-align:center;}
+  table.pv-table{
+    width:100%;
+    border-collapse:collapse;
+    margin-bottom:14px;
+    font-size:13px;
+  }
+  table.pv-table th{
+    border:1px solid var(--ink);
+    background:#eef1f5;
+    padding:7px 5px;
+    font-size:12.5px;
+  }
+  table.pv-table td{
+    border:1px solid var(--ink);
+    padding:7px 5px;
+    text-align:center;
+  }
+  table.pv-table td.pv-name{text-align:left;}
+  .pv-total{
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+    gap:12px;
+    border:1px solid var(--ink);
+    padding:10px 16px;
+    margin-bottom:14px;
+    font-weight:700;
+    font-size:15px;
+  }
+  .pv-sign-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    border:1px solid var(--ink);
+  }
+  .pv-sign-cell{
+    border:1px solid var(--ink);
+    padding:12px 10px 34px;
+    font-size:14px;
+    font-weight:700;
+    min-height:60px;
+  }
+  .pv-sign-cell span.val{font-weight:400;margin-left:6px;}
+  .pv-sign-img{
+    display:block;
+    max-height:50px;
+    max-width:150px;
+    margin-top:6px;
+    object-fit:contain;
+  }
+  .pv-review{
+    display:flex;
+    align-items:center;
+    gap:24px;
+    border:1px solid var(--ink);
+    border-top:none;
+    padding:10px 16px;
+    font-size:14px;
+    font-weight:700;
+  }
+  .pv-review .blank-check{font-weight:400;letter-spacing:1px;}
+
+  .notes{
+    font-size:12px;
+    color:var(--muted);
+    border-top:1px dashed var(--line);
+    padding-top:14px;
+    line-height:1.8;
+  }
+  .notes b{color:var(--ink);}
+
+  @media print{
+    @page{size:A4;margin:14mm 12mm;}
+    body{background:#fff;padding:0;margin:0;}
+    .sheet{box-shadow:none;border:none;max-width:100%;width:100%;}
+    .toolbar,.help-toggle,.ref-panel,.content,.del-btn{display:none !important;}
+    .print-view{display:block !important;width:100%;}
+    .titlebar{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    table.pv-table,.pv-sign-grid,.pv-basic{page-break-inside:avoid;}
+    table.pv-table tr{page-break-inside:avoid;}
+  }
+  @media (max-width:760px){
+    .basic-info{grid-template-columns:100px 1fr;}
+    .basic-info .lbl:nth-child(3),.basic-info .val:nth-child(4){grid-column:span 2;}
+    .sign-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <div class="titlebar">
+    <div class="tag">附件一・財務組工具</div>
+    <h1>臺北市立大安區金華國民小學學生家長會<br>獎勵教師指導學生參與校外競賽獎勵金申請表</h1>
+    <div class="sub">依「臺北市大安區金華國民小學學生家長會獎勵教師指導學生參與校外競賽實施辦法」（115年5月19日修訂）填製</div>
+  </div>
+
+  <div class="toolbar">
+    <button class="primary" onclick="addRow()">＋ 新增一筆競賽項目</button>
+    <button onclick="saveDraft()">💾 儲存草稿</button>
+    <button onclick="loadDraft()">📂 載入草稿</button>
+    <button class="gold" onclick="printForm()">🖨️ 列印 / 下載 PDF</button>
+    <button onclick="exportJSON()">⬇️ 匯出備份檔(.json)</button>
+    <button onclick="importJSONTrigger()">⬆️ 匯入備份檔</button>
+    <input type="file" id="importFile" accept=".json" style="display:none" onchange="importJSON(event)">
+    <button onclick="resetForm()">🗑️ 清空重填</button>
+    <span class="save-status" id="saveStatus">尚未儲存</span>
+  </div>
+
+  <div class="content">
+
+    <span class="help-toggle" onclick="toggleRef()">📖 看不懂欄位怎麼填？點此展開「獎勵額度對照表 / 填寫說明」</span>
+    <div class="ref-panel" id="refPanel">
+      <h4>獎勵額度對照表（依辦法第六條）</h4>
+      <table>
+        <tr><th>競賽層級</th><th>第1名</th><th>第2名</th><th>第3名</th><th>第4名（含以後）</th></tr>
+        <tr><td>全國（教育部／運動部給獎）</td><td>2000</td><td>1500</td><td>1200</td><td>1000</td></tr>
+        <tr><td>市級（市長／教育局長給獎）</td><td>800</td><td>700</td><td>600</td><td>500</td></tr>
+        <tr><td>區級（體育類分區活動）</td><td>500</td><td>300</td><td>200</td><td>100</td></tr>
+        <tr><td>其他（一般官方行政單位給獎）</td><td>500</td><td>300</td><td>200</td><td>100</td></tr>
+      </table>
+      <h4>填寫小提醒</h4>
+      <ul>
+        <li><b>競賽層級</b>：「區級」與「其他」適用相同額度表；若為未符合一般校際競賽條件之國際賽事，需經審查小組認定，比照「全國」級核給。</li>
+        <li><b>獲獎排序</b>：第5～8名之獎勵額度等同第4名。若獎狀同時列「等第」與「名次」，以等第計（如：特優第2名 → 以特優認定排序）。</li>
+        <li><b>等第換算</b>：「金牌／特優」≈第1名，「優等」≈第2名，「佳作」依錄取名額由承辦處室審慎勾選對應名次；若僅標示「特優」但無法判斷名次，一律以排序三（第3名）核發。</li>
+        <li><b>團體組加成</b>：3人（含）以上學生組隊參賽，獎勵金額為對照表之 2 倍，請在該列勾選「團體」並填入人數。</li>
+        <li><b>多位指導老師</b>：請以逗號分隔填入所有老師姓名，本表會自動平均試算每人可得金額（實際分配仍以家長會核定為準）。</li>
+        <li><b>同賽事重複獲獎</b>：同次賽事同項目各級比賽僅取最優成績核給一次，請勿重複填列同一獲獎事實。</li>
+      </ul>
+    </div>
+
+    <div class="basic-info">
+      <div class="lbl">申請單位</div>
+      <div class="val"><input type="text" id="unit" placeholder="例：教務處 / 學務處（請填承辦處室）"></div>
+      <div class="lbl">申請日期</div>
+      <div class="val"><input type="date" id="applyDate"></div>
+    </div>
+
+    <table class="items">
+      <thead>
+        <tr>
+          <th style="width:26px;">#</th>
+          <th style="min-width:150px;">競賽項目／名稱<br><span class="field-hint" style="color:#dce4ee;">填競賽全名，例：全國科展</span></th>
+          <th style="width:90px;">競賽性質<br><span class="field-hint" style="color:#dce4ee;">個人／團體</span></th>
+          <th style="width:110px;">競賽層級<br><span class="field-hint" style="color:#dce4ee;">全國／市級／區級／其他</span></th>
+          <th class="col-rank">獲獎排序</th>
+          <th style="min-width:130px;">指導老師<br><span class="field-hint" style="color:#dce4ee;">多人以逗號分隔</span></th>
+          <th style="width:120px;">獎勵金額<br><span class="field-hint" style="color:#dce4ee;">自動試算，可手動調整</span></th>
+          <th class="col-del"></th>
+        </tr>
+      </thead>
+      <tbody id="rowsBody"></tbody>
+    </table>
+
+    <div class="add-row-bar">
+      <button onclick="addRow()">＋ 再新增一筆競賽項目</button>
+    </div>
+
+    <div class="total-bar">
+      <span class="label">申請總金額</span>
+      <span class="amount" id="totalAmount">0</span>
+      <span class="label">元整</span>
+    </div>
+
+    <div class="sign-grid">
+      <div class="sign-cell">
+        <div class="sign-label">處室組長</div>
+        <div class="sign-area">
+          <input type="text" id="sign1" class="sign-text-input" placeholder="可直接打字代簽，或上傳簽名檔">
+          <div class="sign-img-wrap" id="signImgWrap1" style="display:none;">
+            <img id="sign1img" class="sign-img-preview">
+            <button type="button" class="clear-sign-btn" onclick="clearSignImg('1')">✕ 清除簽名檔</button>
+          </div>
+        </div>
+        <label class="upload-btn">📎 上傳簽名檔
+          <input type="file" accept="image/*" style="display:none" onchange="handleSignUpload(event,'1')">
+        </label>
+      </div>
+      <div class="sign-cell">
+        <div class="sign-label">處室主任</div>
+        <div class="sign-area">
+          <input type="text" id="sign2" class="sign-text-input" placeholder="可直接打字代簽，或上傳簽名檔">
+          <div class="sign-img-wrap" id="signImgWrap2" style="display:none;">
+            <img id="sign2img" class="sign-img-preview">
+            <button type="button" class="clear-sign-btn" onclick="clearSignImg('2')">✕ 清除簽名檔</button>
+          </div>
+        </div>
+        <label class="upload-btn">📎 上傳簽名檔
+          <input type="file" accept="image/*" style="display:none" onchange="handleSignUpload(event,'2')">
+        </label>
+      </div>
+      <div class="sign-cell">
+        <div class="sign-label">校　　長</div>
+        <div class="sign-area">
+          <input type="text" id="sign3" class="sign-text-input" placeholder="可直接打字代簽，或上傳簽名檔">
+          <div class="sign-img-wrap" id="signImgWrap3" style="display:none;">
+            <img id="sign3img" class="sign-img-preview">
+            <button type="button" class="clear-sign-btn" onclick="clearSignImg('3')">✕ 清除簽名檔</button>
+          </div>
+        </div>
+        <label class="upload-btn">📎 上傳簽名檔
+          <input type="file" accept="image/*" style="display:none" onchange="handleSignUpload(event,'3')">
+        </label>
+      </div>
+    </div>
+    <div class="review-bar">
+      審查結果：
+      <span class="blank-check">□ 通過</span>
+      <span class="blank-check">□ 不通過</span>
+      <span class="review-hint">（請列印後由審查小組人工勾選並簽註）</span>
+    </div>
+
+    <div class="notes">
+      <b>應檢附資料</b>：①本申請表　②代表本校參賽之公文或比賽報名文件（報名表、賽事簡章規則等）　③參賽得獎之公文、獎狀或成績證明影本　④其他文件（如指導證明等）。<br>
+      <b>申請時間</b>：競賽獲獎後，請於該獲獎學年度 6 月 10 日前，由各處室承辦人以「申請清冊」一次性彙整向家長會提出申請；逾期或個別零星申請不予受理。<br>
+      本表單為線上輔助試算工具，所有試算金額與認定結果，仍以家長會審查小組最終核定為準。
+    </div>
+
+  </div>
+
+  <div class="print-view" id="printView"></div>
+
+</div>
+
+<script>
+const RATE_TABLE = {
+  '全國': [2000,1500,1200,1000],
+  '市級': [800,700,600,500],
+  '區級': [500,300,200,100],
+  '其他': [500,300,200,100]
+};
+const STORAGE_KEY = 'jinhua_award_application_draft_v1';
+let rowCount = 0;
+let signImages = {1:null, 2:null, 3:null};
+
+function handleSignUpload(evt, num){
+  const file = evt.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = e=>{
+    signImages[num] = e.target.result;
+    document.getElementById('sign'+num+'img').src = e.target.result;
+    document.getElementById('signImgWrap'+num).style.display = 'flex';
+    document.getElementById('sign'+num).style.display = 'none';
+    markChanged();
+  };
+  reader.readAsDataURL(file);
+  evt.target.value = '';
+}
+
+function clearSignImg(num){
+  signImages[num] = null;
+  document.getElementById('signImgWrap'+num).style.display = 'none';
+  document.getElementById('sign'+num).style.display = 'block';
+  markChanged();
+}
+
+function makeRow(data){
+  rowCount++;
+  const id = 'row_' + rowCount;
+  const d = Object.assign({
+    name:'', nature:'個人', level:'全國', rank:0, teamSize:1, teachers:'', amount:0, manual:false
+  }, data || {});
+
+  const tr = document.createElement('tr');
+  tr.id = id;
+  tr.dataset.nature = d.nature;
+  tr.dataset.level = d.level;
+
+  tr.innerHTML = `
+    <td class="row-idx">${rowCount}</td>
+    <td class="col-name"><input type="text" value="${escapeHtml(d.name)}" placeholder="例：臺北市學生美術比賽" oninput="markChanged()"></td>
+    <td>
+      <div class="chip-group nature-group">
+        <span class="chip nature-chip" data-val="個人">個人</span>
+        <span class="chip nature-chip" data-val="團體">團體</span>
+      </div>
+      <div class="team-extra teamSizeWrap" style="display:none;">
+        人數：<input type="number" min="3" value="${d.teamSize}" class="teamSizeInput" oninput="recalcRow('${id}')"> 人（≥3人金額×2）
+      </div>
+    </td>
+    <td>
+      <div class="chip-group level-group">
+        <span class="chip level-chip" data-val="全國">全國</span>
+        <span class="chip level-chip" data-val="市級">市級</span>
+        <span class="chip level-chip" data-val="區級">區級</span>
+        <span class="chip level-chip" data-val="其他">其他</span>
+      </div>
+    </td>
+    <td class="col-rank">
+      <select class="rankSelect" onchange="recalcRow('${id}')">
+        <option value="0">第1名／金牌／特優</option>
+        <option value="1">第2名／優等</option>
+        <option value="2">第3名</option>
+        <option value="3">第4～8名（同額）</option>
+      </select>
+    </td>
+    <td class="col-teacher">
+      <input type="text" value="${escapeHtml(d.teachers)}" placeholder="例：王老師、李老師" class="teacherInput" oninput="recalcRow('${id}')">
+      <div class="per-teacher teacherPer"></div>
+    </td>
+    <td class="col-amount">
+      <input type="number" value="${d.amount}" class="amountInput" oninput="onManualAmount('${id}')">
+    </td>
+    <td class="col-del"><button class="del-btn" onclick="delRow('${id}')" title="刪除此列">✕</button></td>
+  `;
+  document.getElementById('rowsBody').appendChild(tr);
+
+  // set active chips
+  tr.querySelectorAll('.nature-chip').forEach(c=>{
+    c.addEventListener('click', ()=>{
+      tr.dataset.nature = c.dataset.val;
+      tr.querySelectorAll('.nature-chip').forEach(x=>x.classList.remove('active-team'));
+      c.classList.add('active-team');
+      tr.querySelector('.teamSizeWrap').style.display = (c.dataset.val==='團體') ? 'block':'none';
+      recalcRow(id);
+    });
+  });
+  tr.querySelectorAll('.level-chip').forEach(c=>{
+    c.addEventListener('click', ()=>{
+      tr.dataset.level = c.dataset.val;
+      tr.querySelectorAll('.level-chip').forEach(x=>x.classList.remove('active-nat'));
+      c.classList.add('active-nat');
+      recalcRow(id);
+    });
+  });
+
+  // initialize selections
+  tr.querySelector(`.nature-chip[data-val="${d.nature}"]`).classList.add('active-team');
+  tr.querySelector(`.level-chip[data-val="${d.level}"]`).classList.add('active-nat');
+  tr.querySelector('.rankSelect').value = d.rank;
+  if(d.nature==='團體') tr.querySelector('.teamSizeWrap').style.display='block';
+  tr.dataset.manual = d.manual ? '1':'0';
+
+  recalcRow(id, true);
+  renumber();
+  return tr;
+}
+
+function escapeHtml(s){
+  return (s||'').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function recalcRow(id, skipManualCheck){
+  const tr = document.getElementById(id);
+  if(!tr) return;
+  const level = tr.dataset.level;
+  const nature = tr.dataset.nature;
+  const rank = parseInt(tr.querySelector('.rankSelect').value, 10);
+  const amountInput = tr.querySelector('.amountInput');
+  const manual = tr.dataset.manual === '1';
+
+  if(!manual){
+    let base = (RATE_TABLE[level] || [0,0,0,0])[rank] || 0;
+    if(nature === '團體'){
+      const size = parseInt(tr.querySelector('.teamSizeInput').value, 10) || 1;
+      if(size >= 3) base = base * 2;
+    }
+    amountInput.value = base;
+  }
+
+  // per-teacher split display
+  const teacherStr = tr.querySelector('.teacherInput').value.trim();
+  const teachers = teacherStr.split(/[,，、]/).map(s=>s.trim()).filter(Boolean);
+  const perEl = tr.querySelector('.teacherPer');
+  const amt = parseInt(amountInput.value, 10) || 0;
+  if(teachers.length > 1){
+    perEl.textContent = `共${teachers.length}人，每人約 ${Math.round(amt/teachers.length)} 元（依辦法第五條平均分配）`;
+  } else {
+    perEl.textContent = '';
+  }
+  updateTotal();
+}
+
+function onManualAmount(id){
+  const tr = document.getElementById(id);
+  tr.dataset.manual = '1';
+  recalcRow(id);
+}
+
+function delRow(id){
+  const tr = document.getElementById(id);
+  if(tr) tr.remove();
+  renumber();
+  updateTotal();
+}
+
+function renumber(){
+  document.querySelectorAll('#rowsBody tr').forEach((tr,i)=>{
+    tr.querySelector('.row-idx').textContent = i+1;
+  });
+}
+
+function updateTotal(){
+  let sum = 0;
+  document.querySelectorAll('.amountInput').forEach(inp=>{
+    sum += parseInt(inp.value,10) || 0;
+  });
+  document.getElementById('totalAmount').textContent = sum.toLocaleString('zh-Hant-TW');
+  markChanged();
+}
+
+function addRow(){
+  makeRow();
+}
+
+function toggleRef(){
+  document.getElementById('refPanel').classList.toggle('open');
+}
+
+function collectState(){
+  const rows = [];
+  document.querySelectorAll('#rowsBody tr').forEach(tr=>{
+    rows.push({
+      name: tr.querySelector('.col-name input').value,
+      nature: tr.dataset.nature,
+      level: tr.dataset.level,
+      rank: parseInt(tr.querySelector('.rankSelect').value,10),
+      teamSize: parseInt(tr.querySelector('.teamSizeInput').value,10) || 1,
+      teachers: tr.querySelector('.teacherInput').value,
+      amount: parseInt(tr.querySelector('.amountInput').value,10) || 0,
+      manual: tr.dataset.manual === '1'
+    });
+  });
+  return {
+    unit: document.getElementById('unit').value,
+    applyDate: document.getElementById('applyDate').value,
+    sign1: document.getElementById('sign1').value,
+    sign2: document.getElementById('sign2').value,
+    sign3: document.getElementById('sign3').value,
+    sign1Img: signImages[1],
+    sign2Img: signImages[2],
+    sign3Img: signImages[3],
+    rows
+  };
+}
+
+function applyState(state){
+  document.getElementById('rowsBody').innerHTML = '';
+  rowCount = 0;
+  document.getElementById('unit').value = state.unit || '';
+  document.getElementById('applyDate').value = state.applyDate || '';
+  document.getElementById('sign1').value = state.sign1 || '';
+  document.getElementById('sign2').value = state.sign2 || '';
+  document.getElementById('sign3').value = state.sign3 || '';
+  [1,2,3].forEach(n=>{
+    const img = state['sign'+n+'Img'] || null;
+    signImages[n] = img;
+    if(img){
+      document.getElementById('sign'+n+'img').src = img;
+      document.getElementById('signImgWrap'+n).style.display = 'flex';
+      document.getElementById('sign'+n).style.display = 'none';
+    } else {
+      document.getElementById('signImgWrap'+n).style.display = 'none';
+      document.getElementById('sign'+n).style.display = 'block';
+    }
+  });
+  (state.rows && state.rows.length ? state.rows : [{}]).forEach(r=>makeRow(r));
+  updateTotal();
+}
+
+function markChanged(){
+  document.getElementById('saveStatus').textContent = '有未儲存的變更…';
+}
+
+function saveDraft(){
+  const state = collectState();
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  const now = new Date();
+  document.getElementById('saveStatus').textContent =
+    '已儲存草稿（' + now.toLocaleString('zh-Hant-TW') + '）';
+}
+
+function loadDraft(){
+  const raw = localStorage.getItem(STORAGE_KEY);
+  if(!raw){ alert('找不到已儲存的草稿。'); return; }
+  applyState(JSON.parse(raw));
+  document.getElementById('saveStatus').textContent = '已載入先前儲存的草稿';
+}
+
+function exportJSON(){
+  const state = collectState();
+  const blob = new Blob([JSON.stringify(state, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  const dateStr = (state.applyDate || new Date().toISOString().slice(0,10));
+  a.href = url;
+  a.download = `金華國小獎勵金申請表_${dateStr}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function importJSONTrigger(){
+  document.getElementById('importFile').click();
+}
+
+function importJSON(evt){
+  const file = evt.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = e=>{
+    try{
+      const state = JSON.parse(e.target.result);
+      applyState(state);
+      document.getElementById('saveStatus').textContent = '已匯入備份檔';
+    }catch(err){
+      alert('檔案格式錯誤，無法匯入。');
+    }
+  };
+  reader.readAsText(file);
+  evt.target.value = '';
+}
+
+function resetForm(){
+  if(!confirm('確定要清空目前所有內容嗎？此動作無法復原（已儲存之草稿不受影響）。')) return;
+  applyState({rows:[{}]});
+  document.getElementById('saveStatus').textContent = '已清空，尚未儲存';
+}
+
+function rankLabel(idx){
+  return ['第1名','第2名','第3名','第4名（含以後）'][idx] || '';
+}
+
+function renderPrintView(){
+  const state = collectState();
+  const rows = state.rows || [];
+
+  let rowsHtml = '';
+  rows.forEach(r=>{
+    const teachers = (r.teachers||'').split(/[,，、]/).map(s=>s.trim()).filter(Boolean);
+    let teacherCell = escapeHtml(r.teachers||'');
+    if(teachers.length > 1){
+      const per = Math.round((r.amount||0)/teachers.length);
+      teacherCell += `<br><span style="font-size:11px;color:#555;">（每人約${per.toLocaleString('zh-Hant-TW')}元）</span>`;
+    }
+    const natureCell = r.nature === '團體'
+      ? `團體（${r.teamSize||1}人）`
+      : '個人';
+    rowsHtml += `
+      <tr>
+        <td class="pv-name">${escapeHtml(r.name||'')}</td>
+        <td>${natureCell}</td>
+        <td>${escapeHtml(r.level||'')}</td>
+        <td>${rankLabel(r.rank)}</td>
+        <td>${teacherCell}</td>
+        <td>${(r.amount||0).toLocaleString('zh-Hant-TW')}</td>
+      </tr>`;
+  });
+
+  const total = rows.reduce((s,r)=>s + (parseInt(r.amount,10)||0), 0);
+
+  const signCell = (label, val, imgVal)=>{
+    let inner = '';
+    if(imgVal){
+      inner = `<img src="${imgVal}" class="pv-sign-img">`;
+    } else if(val){
+      inner = `<span class="val">${escapeHtml(val)}</span>`;
+    }
+    return `<div class="pv-sign-cell">${label}：${inner}</div>`;
+  };
+
+  document.getElementById('printView').innerHTML = `
+    <div class="pv-title">臺北市立大安區金華國民小學學生家長會<br>獎勵教師指導學生參與校外競賽獎勵金申請表</div>
+    <div class="pv-basic">
+      <div class="lbl">申請單位</div><div class="val">${escapeHtml(state.unit||'')}</div>
+      <div class="lbl">申請日期</div><div class="val">${escapeHtml(state.applyDate||'')}</div>
+    </div>
+    <table class="pv-table">
+      <thead>
+        <tr>
+          <th>競賽項目／名稱</th><th>競賽性質</th><th>競賽層級</th><th>獲獎排序</th><th>指導老師</th><th>獎勵金額</th>
+        </tr>
+      </thead>
+      <tbody>${rowsHtml}</tbody>
+    </table>
+    <div class="pv-total">申請總金額　${total.toLocaleString('zh-Hant-TW')}　元整</div>
+    <div class="pv-sign-grid">
+      ${signCell('處室組長', state.sign1, state.sign1Img)}
+      ${signCell('處室主任', state.sign2, state.sign2Img)}
+      ${signCell('校　長', state.sign3, state.sign3Img)}
+    </div>
+    <div class="pv-review">
+      審查結果：
+      <span class="blank-check">□ 通過</span>
+      <span class="blank-check">□ 不通過</span>
+    </div>
+  `;
+}
+
+function printForm(){
+  renderPrintView();
+  window.print();
+}
+window.addEventListener('beforeprint', renderPrintView);
+
+
+(function init(){
+  const raw = localStorage.getItem(STORAGE_KEY);
+  if(raw){
+    try{
+      applyState(JSON.parse(raw));
+      document.getElementById('saveStatus').textContent = '已自動載入上次草稿';
+      return;
+    }catch(e){}
+  }
+  applyState({rows:[{}]});
+  if(!document.getElementById('applyDate').value){
+    document.getElementById('applyDate').value = new Date().toISOString().slice(0,10);
+  }
+})();
+
+document.getElementById('unit').addEventListener('input', markChanged);
+document.getElementById('applyDate').addEventListener('input', markChanged);
+document.getElementById('sign1').addEventListener('input', markChanged);
+document.getElementById('sign2').addEventListener('input', markChanged);
+document.getElementById('sign3').addEventListener('input', markChanged);
+</script>
+</body>
+</html>
